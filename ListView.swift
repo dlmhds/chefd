@@ -7,14 +7,42 @@
 
 import SwiftUI
 
+//struct ListItem: Identifiable{
+//    var id = UUID()
+//    var text: String
+//    var view: AnyView
+//}
+
 struct ListView: View {
+    public var title: String = ""
+    public var list: [ListItem]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            Section (header:
+                        Text(title)
+                            .fontWeight(.heavy)
+                            .font(.system(.title3))){
+                ForEach(list) { item in
+                    NavigationLink(destination: item.view){
+                        Text(item.text)
+                    }
+                } 
+            }
+        }
+        .listStyle(.plain)
+        .navigationTitle(title)
+        .toolbar(.hidden)
+        
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView()
+        ListView(
+            title: "Title",
+            list: [
+                ListItem(text: "home", view: AnyView(HomeView()))
+            ]
+        )
     }
 }

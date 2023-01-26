@@ -7,9 +7,26 @@
 
 import SwiftUI
 
-struct BrowseView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+var browseByList = [
+    ListItem(text: "country", view: AnyView(CountryView()))
+]
+
+struct BrowseView: View {    var body: some View {
+        List {
+            Section (header:
+                        Text("Browse By")
+                            .fontWeight(.heavy)
+                            .font(.system(.title3))){
+                ForEach(browseByList) { item in
+                    NavigationLink(destination: item.view){
+                        Text(item.text)
+                    }
+                }
+            }
+        }
+        .listStyle(.plain)
+        .navigationTitle("Browse")
+        .toolbar(.hidden)
     }
 }
 
